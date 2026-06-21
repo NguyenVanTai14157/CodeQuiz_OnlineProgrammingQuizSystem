@@ -16,6 +16,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Value;
+import java.util.Arrays;
+import java.util.Collections;
 
 @Configuration
 @EnableMethodSecurity
@@ -28,6 +31,9 @@ public class WebSecurityConfig {
 
   @Autowired
   private AuthTokenFilter authTokenFilter;
+
+  @Value("${ALLOWED_ORIGINS:http://localhost:4200,http://localhost:4300}")
+  private String allowedOrigins;
 
   @Bean
   public DaoAuthenticationProvider authenticationProvider() {
@@ -76,7 +82,13 @@ public class WebSecurityConfig {
   @Bean
   public org.springframework.web.cors.CorsConfigurationSource corsConfigurationSource() {
     org.springframework.web.cors.CorsConfiguration configuration = new org.springframework.web.cors.CorsConfiguration();
-    configuration.setAllowedOrigins(java.util.List.of("http://localhost:4200", "http://localhost:4300")); // Thêm port frontend vào đây
+    
+    if (allowedOrigins != null && !allowedOrigins.isEmpty()) {
+        configuration.setAllowedOrigins(Arrays.asList(allowedOrigins.split(",")));
+    } else {
+        configuration.setAllowedOrigins(Collections.singletonList("*"));
+    }
+    
     configuration.setAllowedMethods(java.util.List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
     configuration.setAllowedHeaders(java.util.List.of("Authorization", "Content-Type", "X-Requested-With"));
     configuration.setAllowCredentials(true);

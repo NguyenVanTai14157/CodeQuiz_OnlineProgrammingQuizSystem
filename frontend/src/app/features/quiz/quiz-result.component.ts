@@ -54,11 +54,11 @@ import { ExamResult, Exam, Question } from '../../models/quiz.model';
               <i class="fas fa-search"></i> Xem lại bài làm
             </button>
             <div class="action-row">
-              <button routerLink="/quiz" class="btn-premium flex-1" style="background: #f1f5f9; color: #475569;">
-                Thi bài khác
+              <button routerLink="/quiz" class="btn-secondary-premium flex-1">
+                <i class="fas fa-redo"></i> Thi bài khác
               </button>
-              <button routerLink="/quiz/history" class="btn-premium flex-1" style="background: #f1f5f9; color: #475569;">
-                Lịch sử của tôi
+              <button routerLink="/quiz/history" class="btn-secondary-premium flex-1">
+                <i class="fas fa-history"></i> Lịch sử của tôi
               </button>
             </div>
             <p class="guest-notice" *ngIf="isGuest">
@@ -197,6 +197,53 @@ import { ExamResult, Exam, Question } from '../../models/quiz.model';
     .badge-your-ans { font-size: 0.7rem; font-weight: 800; background: #e2e8f0; color: #475569; padding: 0.2rem 0.5rem; border-radius: 4px; text-transform: uppercase; }
     .correct-icon { color: #10b981; font-size: 1.25rem; }
     .wrong-icon { color: #ef4444; font-size: 1.25rem; }
+    .btn-premium {
+      padding: 1rem 1.5rem;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      border: none;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+    }
+    
+    .btn-secondary-premium {
+      padding: 1rem 1.25rem;
+      border-radius: 14px;
+      background: white;
+      color: #475569;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      border: 2px solid #e2e8f0;
+    }
+    .btn-secondary-premium:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      transform: translateY(-1px);
+    }
+    .btn-secondary-premium i {
+      color: #6366f1;
+    }
+    .flex-1 { flex: 1; }
   `]
 })
 export class QuizResultComponent implements OnInit {

@@ -245,7 +245,7 @@ export class QuizHistoryComponent implements OnInit, OnDestroy {
   }
 
   goToLogin() {
-    this.router.navigate(['/auth/login'], { queryParams: { returnUrl: '/quiz/history' } });
+    this.router.navigate(['/login'], { queryParams: { returnUrl: '/quiz/history' } });
   }
 
   getScoreClass(score: number): string {

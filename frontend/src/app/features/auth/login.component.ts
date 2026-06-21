@@ -1,7 +1,7 @@
 import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
@@ -105,6 +105,7 @@ import { AuthService } from '../../core/services/auth.service';
 export class LoginComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
   private cdr = inject(ChangeDetectorRef);
 
   username = '';
@@ -123,8 +124,8 @@ export class LoginComponent {
     this.cdr.markForCheck();
     this.authService.login(this.username, this.password).subscribe({
       next: (user) => {
-        if (user.roles.includes('ROLE_ADMIN')) this.router.navigate(['/admin']);
-        else this.router.navigate(['/quiz']);
+        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || (user.roles.includes('ROLE_ADMIN') ? '/admin' : '/quiz');
+        this.router.navigateByUrl(returnUrl);
       },
       error: (err) => {
         this.errorMsg = err.error?.message || 'Đăng nhập thất bại!';
