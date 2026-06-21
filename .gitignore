@@ -1,0 +1,32 @@
+# IDE
+.vscode/
+.idea/
+*.swp
+*.log
+.DS_Store
+
+# Java / Spring Boot (Backend)
+backend/build/
+backend/.gradle/
+backend/bin/
+backend/out/
+backend/target/
+backend/.settings/
+backend/.classpath/
+backend/.project/
+
+# Node / Angular (Frontend)
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.vscode/
+frontend/npm-debug.log*
+frontend/yarn-error.log*
+frontend/.editorconfig
+frontend/src/environments/environment.prod.ts
+
+# Database / Miscellaneous
+*.sql
+.env
+.DS_Store
+Thumbs.db

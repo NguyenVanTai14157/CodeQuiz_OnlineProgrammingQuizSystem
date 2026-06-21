@@ -1,0 +1,142 @@
+﻿
+./gradlew : D:\study2026\src\main\java\com\Spring
+master\study2026\entity\user.java:19: error: 
+class User is public, should be declared in a 
+file named User.java
+At line:1 char:1
++ ./gradlew compileJava --console=plain > 
+build_error.txt 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (D:\ 
+   study2026\sr...named User.java:String) [], R  
+  emoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+public class User {
+       ^
+> Task :compileJava FAILED
+D:\study2026\src\main\java\com\Springmaster\study
+2026\controller\UserController.java:47: error: 
+cannot find symbol
+        user.setId(userId);
+            ^
+  symbol:   method setId(Long)
+  location: variable user of type User
+D:\study2026\src\main\java\com\Springmaster\study
+2026\service\impl\IUserService.java:7: error: 
+IUserService is not abstract and does not 
+override abstract method deleteUser(Long) in 
+UserService
+public class IUserService implements UserService 
+{
+       ^
+D:\study2026\src\main\java\com\Springmaster\study
+2026\service\impl\UserServiceImpl.java:36: 
+error: cannot find symbol
+        User existingUser = userRepository.findBy
+Id(user.getId()).orElse(null);
+                                                 
+       ^
+  symbol:   method getId()
+  location: variable user of type User
+D:\study2026\src\main\java\com\Springmaster\study
+2026\service\impl\UserServiceImpl.java:38: 
+error: cannot find symbol
+            
+existingUser.setFirstName(user.getFirstName());
+                                          ^
+  symbol:   method getFirstName()
+  location: variable user of type User
+D:\study2026\src\main\java\com\Springmaster\study
+2026\service\impl\UserServiceImpl.java:39: 
+error: cannot find symbol
+            
+existingUser.setLastName(user.getLastName());
+                                         ^
+  symbol:   method getLastName()
+  location: variable user of type User
+D:\study2026\src\main\java\com\Springmaster\study
+2026\service\impl\UserServiceImpl.java:40: 
+error: cannot find symbol
+            
+existingUser.setEmail(user.getEmail());
+                                      ^
+  symbol:   method getEmail()
+  location: variable user of type User
+7 errors
+
+[Incubating] Problems report is available at: file:///D:/study2026/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava' 
+(registered by plugin class 
+'org.gradle.api.plugins.JavaBasePlugin').
+> Compilation failed; see the compiler output 
+below.
+  D:\study2026\src\main\java\com\Springmaster\stu
+dy2026\service\impl\IUserService.java:7: error: 
+IUserService is not abstract and does not 
+override abstract method deleteUser(Long) in 
+UserService
+  public class IUserService implements 
+UserService {
+         ^
+  D:\study2026\src\main\java\com\Springmaster\stu
+dy2026\controller\UserController.java:47: error: 
+cannot find symbol
+          user.setId(userId);
+              ^
+    symbol:   method setId(Long)
+    location: variable user of type User
+  D:\study2026\src\main\java\com\Springmaster\stu
+dy2026\service\impl\UserServiceImpl.java:36: 
+error: cannot find symbol
+          User existingUser = userRepository.find
+ById(user.getId()).orElse(null);
+                                                 
+         ^
+    symbol:   method getId()
+    location: variable user of type User
+  D:\study2026\src\main\java\com\Springmaster\stu
+dy2026\service\impl\UserServiceImpl.java:38: 
+error: cannot find symbol
+              
+existingUser.setFirstName(user.getFirstName());
+                                            ^
+    symbol:   method getFirstName()
+    location: variable user of type User
+  D:\study2026\src\main\java\com\Springmaster\stu
+dy2026\service\impl\UserServiceImpl.java:39: 
+error: cannot find symbol
+              
+existingUser.setLastName(user.getLastName());
+                                           ^
+    symbol:   method getLastName()
+    location: variable user of type User
+  D:\study2026\src\main\java\com\Springmaster\stu
+dy2026\service\impl\UserServiceImpl.java:40: 
+error: cannot find symbol
+              
+existingUser.setEmail(user.getEmail());
+                                        ^
+    symbol:   method getEmail()
+    location: variable user of type User
+  D:\study2026\src\main\java\com\Springmaster\stu
+dy2026\entity\user.java:19: error: class User is 
+public, should be declared in a file named 
+User.java
+  public class User {
+         ^
+  7 errors
+
+* Try:
+> Check your code and dependencies to fix the 
+compilation error(s)
+> Run with --scan to get full insights from a 
+Build Scan (powered by Develocity).
+
+BUILD FAILED in 2s
+1 actionable task: 1 executed
