@@ -35,7 +35,7 @@ import { AuthService } from '../../core/services/auth.service';
 
             <div class="user-profile">
               <span class="user-name">{{ user.username }}</span>
-              <button (click)="logout()" class="btn-logout">Sửa</button>
+              <button (click)="logout()" class="btn-logout">Đăng xuất</button>
             </div>
           </ng-container>
 
