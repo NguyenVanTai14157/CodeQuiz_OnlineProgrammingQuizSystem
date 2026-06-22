@@ -2,7 +2,7 @@
 
 CodeQuiz là một nền tảng thi trắc nghiệm lập trình trực tuyến mạnh mẽ, được thiết kế để giúp người dùng ôn tập và kiểm tra kiến thức về nhiều ngôn ngữ lập trình khác nhau như Java, Python, SQL, JavaScript, và nhiều hơn nữa.
 
-![CodeQuiz Banner](https://images.unsplash.com/photo-1434031216660-c54565b3bb71?q=80&w=2070&auto=format&fit=crop)
+![CodeQuiz Banner](./assets/banner.png)
 
 ## 🚀 Tính năng nổi bật
 
