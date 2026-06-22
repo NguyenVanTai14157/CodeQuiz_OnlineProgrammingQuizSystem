@@ -61,7 +61,7 @@ public class AuthController {
                            userDetails.getEmail(), 
                            roles));
     } catch (org.springframework.security.authentication.BadCredentialsException e) {
-      return ResponseEntity.status(401).body(new MessageResponse("Lỗi: Tên đăng nhập hoặc mật khẩu không chính xác!"));
+      return ResponseEntity.status(401).body(new MessageResponse("Tên đăng nhập hoặc mật khẩu không chính xác!"));
     } catch (Exception e) {
       return ResponseEntity.status(401).body(new MessageResponse("Lỗi: " + e.getMessage()));
     }
@@ -72,13 +72,13 @@ public class AuthController {
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {
       return ResponseEntity
           .badRequest()
-          .body(new MessageResponse("Error: Username is already taken!"));
+          .body(new MessageResponse("Lỗi: Tên đăng nhập đã tồn tại!"));
     }
 
     if (userRepository.existsByEmail(signUpRequest.getEmail())) {
       return ResponseEntity
           .badRequest()
-          .body(new MessageResponse("Error: Email is already in use!"));
+          .body(new MessageResponse("Lỗi: Email này đã được sử dụng!"));
     }
 
     // Create new user's account
