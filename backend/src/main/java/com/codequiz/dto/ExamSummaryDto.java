@@ -13,4 +13,5 @@ public class ExamSummaryDto {
     private Integer duration;
     private Integer totalQuestions;
     private String status;
+    private Long subjectId;
 }

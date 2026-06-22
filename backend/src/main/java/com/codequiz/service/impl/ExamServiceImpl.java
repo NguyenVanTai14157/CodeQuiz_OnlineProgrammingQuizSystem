@@ -216,6 +216,11 @@ public class ExamServiceImpl implements ExamService {
     }
 
     private ExamSummaryDto mapToSummaryDto(Exam exam) {
+        Long subjectId = null;
+        if (exam.getQuestions() != null && !exam.getQuestions().isEmpty()) {
+            subjectId = exam.getQuestions().iterator().next().getSubject().getId();
+        }
+        
         return ExamSummaryDto.builder()
                 .id(exam.getId())
                 .title(exam.getTitle())
@@ -223,6 +228,7 @@ public class ExamServiceImpl implements ExamService {
                 .duration(exam.getDuration())
                 .totalQuestions(exam.getTotalQuestions())
                 .status(exam.getStatus())
+                .subjectId(subjectId)
                 .build();
     }
 

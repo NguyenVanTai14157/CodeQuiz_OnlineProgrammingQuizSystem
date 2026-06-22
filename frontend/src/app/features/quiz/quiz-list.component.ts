@@ -219,15 +219,8 @@ export class QuizListComponent implements OnInit, OnDestroy {
     if (this.selectedSubjectId == 0) {
       this.filteredExams = this.allExams;
     } else {
-      this.filteredExams = this.allExams.filter(e => e.questionIds && e.questionIds.length > 0); 
-      // Note: Ideal filtering should be done by checking if any question in exam belongs to selected subject
-      // or if Exam has a subjectId field. For now, let's just do a simple filter if possible.
-      // Since mapToDto in ExamServiceImpl doesn't include subjectId on the Exam itself yet, 
-      // I'll add subjectId to Exam entity and DTO later or just filter by questions.
-      
-      // I'll just filter exams that have at least one question from the selected subject
       this.filteredExams = this.allExams.filter(exam => 
-        exam.questions?.some(q => q.subjectId === Number(this.selectedSubjectId))
+        exam.subjectId === Number(this.selectedSubjectId)
       );
     }
   }

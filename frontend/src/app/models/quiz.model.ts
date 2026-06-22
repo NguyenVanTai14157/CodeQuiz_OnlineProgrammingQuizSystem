@@ -25,6 +25,7 @@ export interface Exam {
   duration: number;
   totalQuestions: number;
   status: string;
+  subjectId?: number;
   questionIds?: number[];
   questions?: Question[];
 }
