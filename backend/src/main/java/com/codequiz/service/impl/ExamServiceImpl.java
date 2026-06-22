@@ -100,7 +100,9 @@ public class ExamServiceImpl implements ExamService {
     @Override
     @Transactional(readOnly = true)
     public List<ExamSummaryDto> getPublishedExams() {
-        return examRepository.findByStatusIgnoreCase("PUBLISHED").stream()
+        List<Exam> exams = examRepository.findByStatusIgnoreCase("PUBLISHED");
+        System.out.println("Found " + exams.size() + " published exams");
+        return exams.stream()
                 .map(this::mapToSummaryDto)
                 .collect(Collectors.toList());
     }
@@ -217,8 +219,15 @@ public class ExamServiceImpl implements ExamService {
 
     private ExamSummaryDto mapToSummaryDto(Exam exam) {
         Long subjectId = null;
-        if (exam.getQuestions() != null && !exam.getQuestions().isEmpty()) {
-            subjectId = exam.getQuestions().iterator().next().getSubject().getId();
+        try {
+            if (exam.getQuestions() != null && !exam.getQuestions().isEmpty()) {
+                Question firstQuestion = exam.getQuestions().iterator().next();
+                if (firstQuestion.getSubject() != null) {
+                    subjectId = firstQuestion.getSubject().getId();
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error mapping subject for exam " + exam.getId() + ": " + e.getMessage());
         }
         
         return ExamSummaryDto.builder()
