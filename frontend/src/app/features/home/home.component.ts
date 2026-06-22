@@ -188,6 +188,9 @@ import { filter, Subscription } from 'rxjs';
       justify-content: center;
       margin-top: 3rem;
     }
+    @media (max-width: 640px) {
+      .hero-actions { flex-direction: column; align-items: stretch; padding: 0 2rem; }
+    }
     
     .glow-btn {
       padding: 0.8rem 2rem;
@@ -242,6 +245,9 @@ import { filter, Subscription } from 'rxjs';
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 2rem;
     }
+    @media (max-width: 640px) {
+      .subject-grid { grid-template-columns: 1fr; gap: 1rem; }
+    }
     .subject-card.modern {
       background: white;
       padding: 2.5rem 2rem;
@@ -289,6 +295,9 @@ import { filter, Subscription } from 'rxjs';
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 2rem;
+    }
+    @media (max-width: 640px) {
+      .exam-modern-grid { grid-template-columns: 1fr; gap: 1rem; }
     }
     .exam-card-modern {
       background: white;

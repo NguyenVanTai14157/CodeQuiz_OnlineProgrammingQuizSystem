@@ -35,6 +35,12 @@ a { text-decoration: none; color: inherit; }
   margin: 0 auto;
   padding: 2rem;
 }
+
+@media (max-width: 768px) {
+  .page-shell {
+    padding: 1rem;
+  }
+}
 .main-content {
   min-height: calc(100vh - 80px); /* Adjust based on navbar height */
 }
@@ -60,6 +66,13 @@ p { margin-top: 0; margin-bottom: 1rem; color: var(--text-muted); }
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .card-grid, .metric-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 }
 
 .premium-card, .metric-card, .subject-card, .exam-card {
