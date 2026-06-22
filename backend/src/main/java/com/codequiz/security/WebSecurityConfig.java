@@ -19,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.beans.factory.annotation.Value;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 @Configuration
 @EnableMethodSecurity
@@ -63,13 +64,16 @@ public class WebSecurityConfig {
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> 
           auth.requestMatchers(org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher(org.springframework.http.HttpMethod.OPTIONS, "/**")).permitAll()
-              .requestMatchers("/api/auth/**").permitAll()
-              .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/subjects", "/api/subjects/**").permitAll()
-              .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/exams/published", "/api/exams/published/**").permitAll()
-              .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/exams/{id}").permitAll()
-              .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/exams/submit").permitAll()
-              .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/questions/**").permitAll()
-              .requestMatchers("/api/test/**").permitAll()
+              .requestMatchers(org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher("/api/auth/**")).permitAll()
+              .requestMatchers(org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher(org.springframework.http.HttpMethod.GET, "/api/subjects/**")).permitAll()
+              .requestMatchers(org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher(org.springframework.http.HttpMethod.GET, "/api/subjects")).permitAll()
+              .requestMatchers(org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher(org.springframework.http.HttpMethod.GET, "/api/exams/published/**")).permitAll()
+              .requestMatchers(org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher(org.springframework.http.HttpMethod.GET, "/api/exams/published")).permitAll()
+              .requestMatchers(org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher(org.springframework.http.HttpMethod.GET, "/api/exams")).permitAll()
+              .requestMatchers(org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher(org.springframework.http.HttpMethod.GET, "/api/exams/**")).permitAll()
+              .requestMatchers(org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher(org.springframework.http.HttpMethod.POST, "/api/exams/submit")).permitAll()
+              .requestMatchers(org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher(org.springframework.http.HttpMethod.GET, "/api/questions/**")).permitAll()
+              .requestMatchers(org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher("/api/test/**")).permitAll()
               .anyRequest().authenticated()
         );
     
@@ -84,7 +88,9 @@ public class WebSecurityConfig {
     org.springframework.web.cors.CorsConfiguration configuration = new org.springframework.web.cors.CorsConfiguration();
     
     if (allowedOrigins != null && !allowedOrigins.isEmpty()) {
-        configuration.setAllowedOrigins(Arrays.asList(allowedOrigins.split(",")));
+        configuration.setAllowedOrigins(Arrays.stream(allowedOrigins.split(","))
+                .map(String::trim)
+                .collect(Collectors.toList()));
     } else {
         configuration.setAllowedOrigins(Collections.singletonList("*"));
     }
