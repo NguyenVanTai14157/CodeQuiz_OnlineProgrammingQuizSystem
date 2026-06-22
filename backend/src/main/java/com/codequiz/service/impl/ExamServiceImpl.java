@@ -91,18 +91,17 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ExamDto> getAllExams() {
+    public List<ExamSummaryDto> getAllExams() {
         return examRepository.findAll().stream()
-                .map(this::mapToDto)
+                .map(this::mapToSummaryDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<ExamDto> getPublishedExams() {
-        return examRepository.findAll().stream()
-                .filter(e -> "PUBLISHED".equalsIgnoreCase(e.getStatus()))
-                .map(this::mapToDto)
+    public List<ExamSummaryDto> getPublishedExams() {
+        return examRepository.findByStatusIgnoreCase("PUBLISHED").stream()
+                .map(this::mapToSummaryDto)
                 .collect(Collectors.toList());
     }
 
@@ -213,6 +212,17 @@ public class ExamServiceImpl implements ExamService {
                 .questions(exam.getQuestions().stream()
                         .map(this::mapQuestionToDto)
                         .collect(Collectors.toList()))
+                .build();
+    }
+
+    private ExamSummaryDto mapToSummaryDto(Exam exam) {
+        return ExamSummaryDto.builder()
+                .id(exam.getId())
+                .title(exam.getTitle())
+                .description(exam.getDescription())
+                .duration(exam.getDuration())
+                .totalQuestions(exam.getTotalQuestions())
+                .status(exam.getStatus())
                 .build();
     }
 

@@ -1,6 +1,7 @@
 package com.codequiz.controller;
 
 import com.codequiz.dto.ExamDto;
+import com.codequiz.dto.ExamSummaryDto;
 import com.codequiz.dto.ExamSubmissionDto;
 import com.codequiz.dto.ExamResultDto;
 import com.codequiz.service.ExamService;
@@ -46,12 +47,12 @@ public class ExamController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ExamDto>> getAllExams() {
+    public ResponseEntity<List<ExamSummaryDto>> getAllExams() {
         return ResponseEntity.ok(examService.getAllExams());
     }
 
     @GetMapping("/published")
-    public ResponseEntity<List<ExamDto>> getPublishedExams() {
+    public ResponseEntity<List<ExamSummaryDto>> getPublishedExams() {
         return ResponseEntity.ok(examService.getPublishedExams());
     }
 
