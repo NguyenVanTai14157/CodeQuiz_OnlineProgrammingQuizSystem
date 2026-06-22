@@ -58,7 +58,8 @@ public class AuthController {
       return ResponseEntity.ok(new JwtResponse(jwt, 
                            userDetails.getId(), 
                            userDetails.getUsername(), 
-                           userDetails.getEmail(), 
+                           userDetails.getEmail(),
+                           userDetails.getFullName(),
                            roles));
     } catch (org.springframework.security.authentication.BadCredentialsException e) {
       return ResponseEntity.status(401).body(new MessageResponse("Tên đăng nhập hoặc mật khẩu không chính xác!"));

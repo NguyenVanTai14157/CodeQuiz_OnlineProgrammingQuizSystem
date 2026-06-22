@@ -33,8 +33,8 @@ import { AuthService } from '../../core/services/auth.service';
             <input type="email" [(ngModel)]="form.email" name="email" placeholder="" required autocomplete="off" (input)="errorMsg = ''">
           </div>
           <div class="form-group">
-            <label>Họ và tên</label>
-            <input type="text" [(ngModel)]="form.fullName" name="fullName" placeholder="" autocomplete="off" (input)="errorMsg = ''">
+            <label>Họ và tên <span class="required">*</span></label>
+            <input type="text" [(ngModel)]="form.fullName" name="fullName" placeholder="" required autocomplete="off" (input)="errorMsg = ''">
           </div>
           <div class="form-group">
             <label>Mật khẩu</label>
@@ -86,6 +86,7 @@ import { AuthService } from '../../core/services/auth.service';
     .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
     .auth-footer { margin-top: 1.5rem; text-align: center; font-size: 0.875rem; color: #94a3b8; }
     .auth-footer a { color: #10b981; text-decoration: none; font-weight: 600; }
+    .required { color: #f87171; margin-left: 2px; }
   `]
 })
 export class SignupComponent {
@@ -123,6 +124,21 @@ export class SignupComponent {
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.form.email)) {
       this.errorMsg = 'Email không đúng định dạng!';
+      this.cdr.markForCheck();
+      return;
+    }
+    if (!this.form.fullName || !this.form.fullName.trim()) {
+      this.errorMsg = 'Vui lòng nhập họ và tên!';
+      this.cdr.markForCheck();
+      return;
+    }
+    if (this.form.fullName.trim().length < 2) {
+      this.errorMsg = 'Họ và tên phải có ít nhất 2 ký tự!';
+      this.cdr.markForCheck();
+      return;
+    }
+    if (this.form.fullName.trim().length > 50) {
+      this.errorMsg = 'Họ và tên không được quá 50 ký tự!';
       this.cdr.markForCheck();
       return;
     }

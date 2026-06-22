@@ -29,7 +29,7 @@ import { AuthService } from '../../core/services/auth.service';
             </div>
 
             <div class="user-profile">
-              <span class="user-name">Chào, {{ user.username }}</span>
+              <span class="user-name">Chào, {{ user.fullName || user.username }}</span>
               <button (click)="authService.logout()" class="btn-logout">Đăng xuất</button>
             </div>
           </ng-container>
