@@ -114,13 +114,18 @@ export class LoginComponent {
   errorMsg = '';
 
   onLogin() {
-    if (!this.username || !this.password) {
-      this.errorMsg = 'Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu!';
+    this.errorMsg = '';
+    if (!this.username) {
+      this.errorMsg = 'Vui lòng nhập tên đăng nhập!';
+      this.cdr.markForCheck();
+      return;
+    }
+    if (!this.password) {
+      this.errorMsg = 'Vui lòng nhập mật khẩu!';
       this.cdr.markForCheck();
       return;
     }
     this.loading = true;
-    this.errorMsg = '';
     this.cdr.markForCheck();
     this.authService.login(this.username, this.password).subscribe({
       next: (user) => {
@@ -128,7 +133,15 @@ export class LoginComponent {
         this.router.navigateByUrl(returnUrl);
       },
       error: (err) => {
-        this.errorMsg = err.error?.message || 'Đăng nhập thất bại!';
+        if (err.error?.message) {
+          this.errorMsg = err.error.message;
+        } else if (err.status === 401) {
+          this.errorMsg = 'Tên đăng nhập hoặc mật khẩu không chính xác!';
+        } else if (err.status === 0) {
+          this.errorMsg = 'Không thể kết nối đến máy chủ. Vui lòng thử lại sau!';
+        } else {
+          this.errorMsg = 'Đăng nhập thất bại. Vui lòng thử lại!';
+        }
         this.loading = false;
         this.cdr.markForCheck();
       }

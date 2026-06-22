@@ -99,13 +99,30 @@ export class SignupComponent {
   successMsg = '';
 
   onSignup() {
+    this.errorMsg = '';
+    
     if (!this.form.username) {
       this.errorMsg = 'Vui lòng nhập tên đăng nhập!';
       this.cdr.markForCheck();
       return;
     }
+    if (this.form.username.length < 3) {
+      this.errorMsg = 'Tên đăng nhập phải có ít nhất 3 ký tự!';
+      this.cdr.markForCheck();
+      return;
+    }
+    if (this.form.username.length > 20) {
+      this.errorMsg = 'Tên đăng nhập không được quá 20 ký tự!';
+      this.cdr.markForCheck();
+      return;
+    }
     if (!this.form.email) {
       this.errorMsg = 'Vui lòng nhập địa chỉ email!';
+      this.cdr.markForCheck();
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.form.email)) {
+      this.errorMsg = 'Email không đúng định dạng!';
       this.cdr.markForCheck();
       return;
     }
@@ -119,19 +136,36 @@ export class SignupComponent {
       this.cdr.markForCheck();
       return;
     }
+    if (this.form.password.length > 40) {
+      this.errorMsg = 'Mật khẩu không được quá 40 ký tự!';
+      this.cdr.markForCheck();
+      return;
+    }
+
     this.loading = true;
-    this.errorMsg = '';
     this.successMsg = '';
     this.cdr.markForCheck();
     
     this.authService.register(this.form).subscribe({
       next: () => {
         this.successMsg = 'Đăng ký thành công! Đang chuyển đến trang đăng nhập...';
+        this.loading = false;
         this.cdr.markForCheck();
         setTimeout(() => this.router.navigate(['/login']), 2000);
       },
       error: (err) => {
-        this.errorMsg = err.error?.message || err.error || 'Đã xảy ra lỗi khi đăng ký!';
+        // Parse lỗi từ backend theo nhiều dạng khác nhau
+        if (err.error?.message) {
+          this.errorMsg = err.error.message;
+        } else if (typeof err.error === 'string') {
+          this.errorMsg = err.error;
+        } else if (err.status === 400) {
+          this.errorMsg = 'Thông tin đăng ký không hợp lệ. Vui lòng kiểm tra lại!';
+        } else if (err.status === 0) {
+          this.errorMsg = 'Không thể kết nối đến máy chủ. Vui lòng thử lại sau!';
+        } else {
+          this.errorMsg = 'Đã xảy ra lỗi khi đăng ký. Vui lòng thử lại!';
+        }
         this.loading = false;
         this.cdr.markForCheck();
       }
